@@ -1,22 +1,14 @@
 <script>
   import { onMount } from 'svelte';
 
-  import hljs from 'highlight.js';
-  import * as marked from 'marked';
+  import Marked from '../../components/Marked';
 
   export let code;
-
-  marked.setOptions({
-    highlight: function(code, language) {
-      const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-      return hljs.highlight(code, { language: validLanguage }).value;
-    }
-  });
 
   let html = '';
 
   const renderCode = () => {
-    html = marked.parse(code);
+    html = Marked.instance().parse(code);
   }
 
   onMount(() => { renderCode(); });
